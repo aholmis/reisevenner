@@ -1,0 +1,53 @@
+﻿@page "/event/{eventCode}"
+@using BlazorApp1.Data
+@using Microsoft.Extensions.Caching.Memory
+@inject IMemoryCache Storage
+
+<h1>@currentEvent.Name</h1>
+
+<p>Del url til deltagerne så de kan bli @Constants.AppName</p>
+<div>
+    <!-- Display event details here -->
+    <p>Kode:  @eventCode</p>
+    <p>Når:  @currentEvent.When</p>
+    <p>Hvor:  @currentEvent.Where</p>
+</div>
+
+<div>
+    <label style="padding-right:330px">Navn</label>
+    <label style="padding-right:150px">Mobilnr</label>
+    <label>Antall plasser</label>
+</div>
+@foreach (var driver in currentEvent.Drivers)
+{
+    <div class="driver-row">
+        <input bind="@driver.DriverName" size="40"/>
+        <input bind="@driver.Phone"/>
+        <input bind="@driver.AvailableSpace" />
+        <button @onclick="() => DeleteDriver(driver)">Fjern</button>
+    </div>
+}
+
+<button @onclick="AddDriver">Legg til sjåfør</button>
+
+@code {
+    [Parameter]
+    public string eventCode { get; set; }
+    EventModel currentEvent;
+
+    protected override void OnParametersSet()
+    {
+        currentEvent = Storage.Get<EventModel>(eventCode);
+    }
+
+    void AddDriver()
+    {
+        // Logic to add a new driver
+        currentEvent.Drivers.Add(new DriverModel());
+    }
+
+    void DeleteDriver(DriverModel driver)
+    {
+        // Logic to delete the selected driver
+    }
+}
