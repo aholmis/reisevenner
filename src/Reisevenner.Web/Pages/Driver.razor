@@ -1,0 +1,41 @@
+﻿@using Reisevenner.Web.Data
+
+<div class="driver">
+    <div class="driver-row">
+        <div>
+            <label for="Name" style="padding-right:330px">Navn</label>
+            <label for="Phone" style="padding-right:150px">Mobilnr</label>
+            <label for="Space">Antall plasser</label>
+        </div>
+        <div>
+            <input id="Name" @bind="DriverInfo.DriverName" size="40"/>
+            <input id="Phone" @bind="DriverInfo.Phone" size="40"/>
+            <input id="Space" @bind="DriverInfo.AvailableSpace" size="20" />
+            <button @onclick="() => OnRefreshSpace()">Oppdater</button>
+            <button @onclick="() => OnDelete.InvokeAsync(DriverInfo)">Fjern</button>
+        </div>
+    </div>
+    <div class="passengers">
+        <div>
+            <label style="padding-right:330px">Navn</label>
+            <label style="padding-right:150px">Mobilnr eller kommentar</label>
+        </div>
+        <!-- Add Passenger component here -->
+        @foreach (var passenger in DriverInfo.Passengers)
+        {
+            <Passenger PassengerInfo="passenger"/>
+        }
+    </div>
+</div>
+@code {
+    [Parameter]
+    public DriverModel DriverInfo { get; set; }
+
+    [Parameter]
+    public EventCallback<DriverModel> OnDelete { get; set; }
+
+    public void OnRefreshSpace()
+    {
+        DriverInfo.Passengers.Add(new());
+    }
+}

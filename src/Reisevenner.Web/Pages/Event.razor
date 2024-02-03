@@ -1,7 +1,8 @@
 ﻿@page "/event/{eventCode}"
-@using BlazorApp1.Data
 @using Microsoft.Extensions.Caching.Memory
+@using Reisevenner.Web.Data
 @inject IMemoryCache Storage
+@inject NavigationManager Navigation
 
 <h1>@currentEvent.Name</h1>
 
@@ -13,19 +14,9 @@
     <p>Hvor:  @currentEvent.Where</p>
 </div>
 
-<div>
-    <label style="padding-right:330px">Navn</label>
-    <label style="padding-right:150px">Mobilnr</label>
-    <label>Antall plasser</label>
-</div>
 @foreach (var driver in currentEvent.Drivers)
 {
-    <div class="driver-row">
-        <input bind="@driver.DriverName" size="40"/>
-        <input bind="@driver.Phone"/>
-        <input bind="@driver.AvailableSpace" />
-        <button @onclick="() => DeleteDriver(driver)">Fjern</button>
-    </div>
+    <Driver DriverInfo="driver" OnDelete="DeleteDriver" />
 }
 
 <button @onclick="AddDriver">Legg til sjåfør</button>
@@ -37,7 +28,12 @@
 
     protected override void OnParametersSet()
     {
-        currentEvent = Storage.Get<EventModel>(eventCode);
+        bool exists = Storage.TryGetValue<EventModel>(eventCode, out currentEvent);
+        if (!exists)
+        {
+            // Redirect to the error page if the event does not exist
+            Navigation.NavigateTo("/notfound");
+        }
     }
 
     void AddDriver()

@@ -1,13 +1,17 @@
-﻿namespace BlazorApp1.Data;
+﻿namespace Reisevenner.Web.Data;
 
-public class DriverModel
+public record DriverModel
 {
-    public string DriverName { get; set; }
-    public string Phone { get; set; }
+    public string DriverName { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
     public int AvailableSpace { get; set; }
-    public List<Passenger> Passengers { get; set; }
+    public List<PassengerModel> Passengers { get; set; } = new();
 }
 
-public record Passenger(string Name, string Phone);
+public record PassengerModel
+{
+    public string Name { get; set; } = string.Empty;
+    public string PhoneOrComment { get; set; } = string.Empty;
+}
 
 public record EventModel(string Code, string Name, string When, string Where, List<DriverModel> Drivers);

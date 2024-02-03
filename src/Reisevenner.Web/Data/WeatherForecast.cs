@@ -1,4 +1,4 @@
-namespace BlazorApp1.Data
+namespace Reisevenner.Web.Data
 {
     public class WeatherForecast
     {

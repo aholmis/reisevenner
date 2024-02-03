@@ -66,3 +66,16 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.driver {
+    border: 1px solid black;
+    padding: 15px;
+    margin: 10px;
+    background-color: lightgreen;
+}
+
+.passengers {
+    /*border: solid black 3px;*/
+    padding-left: 80px;
+    margin: 4px;
+}

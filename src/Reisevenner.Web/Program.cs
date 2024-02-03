@@ -1,6 +1,6 @@
-using BlazorApp1.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Reisevenner.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
