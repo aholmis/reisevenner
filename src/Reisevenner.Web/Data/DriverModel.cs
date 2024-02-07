@@ -6,6 +6,15 @@ public record DriverModel
     public string Phone { get; set; } = string.Empty;
     public int AvailableSpace { get; set; }
     public List<PassengerModel> Passengers { get; set; } = new();
+
+    public bool BilenErStappFull
+    {
+        get
+        {
+            //var passasjerer = Passengers.Where(a => !string.IsNullOrEmpty(a.Name));
+            return Passengers.Count() >= AvailableSpace;
+        }
+    }
 }
 
 public record PassengerModel
