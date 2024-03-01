@@ -15,8 +15,9 @@
             <button @onclick="() => OnDelete.InvokeAsync(DriverInfo)">Kan ikke kjøre likevel</button>
         </div>
         <div>
-            <button class="addpassbtn @(DriverInfo.BilenErStappFull ? "disabled" : "")" @onclick="() => OnAddPassenger()">Jeg vil sitte på</button>
-        </div>
+            <button class="addpassbtn" disabled=@(DriverInfo.BilenErStappFull) @onclick="OnAddPassenger">Jeg vil sitte på</button>
+            <label class="@(DriverInfo.BilenErStappFull ? "buttonDisabledMsg" : "hidden")">Beklager, fullt..</label>
+                                                                                 </div>
     </div>
     <div class="passengers @(DriverInfo.BilenErStappFull ? "full" : "")">
         <div>

@@ -1,7 +1,6 @@
 ﻿@page "/event/{eventCode}"
-@using Microsoft.Extensions.Caching.Memory
 @using Reisevenner.Web.Data
-@inject IMemoryCache Storage
+@inject IEventStorage Storage
 @inject NavigationManager Navigation
 
 <h1>@currentEvent.Name</h1>
@@ -28,12 +27,15 @@
 
     protected override void OnParametersSet()
     {
-        bool exists = Storage.TryGetValue<EventModel>(eventCode, out currentEvent);
+        bool exists = Storage.TryGetValue(eventCode, out var storedEvent);
         if (!exists)
         {
             // Redirect to the error page if the event does not exist
-            Navigation.NavigateTo("/notfound", true);
+            //Navigation.NavigateTo("/notfound", true);
+            throw new NotImplementedException("this event code does not exist");
         }
+
+        currentEvent = storedEvent;
     }
 
     void AddDriver()
