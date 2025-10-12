@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Explicitly reference latest ASP.NET Core packages for better version control -->
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.9" />
+  </ItemGroup>
 
 </Project>

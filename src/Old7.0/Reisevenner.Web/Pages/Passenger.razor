@@ -1,0 +1,11 @@
+﻿
+
+<div class="passenger-row">
+    <input @bind="PassengerInfo.Name" size="40" placeholder="Navn"/>
+    <input @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" size="40" />
+</div>
+
+@code {
+    [Parameter]
+    public Data.PassengerModel PassengerInfo { get; set; }
+}

@@ -1,0 +1,57 @@
+﻿@page "/create-event"
+@using Microsoft.Extensions.Caching.Memory
+@using Reisevenner.Web.Data
+
+@inject NavigationManager Navigation
+@inject IEventStorage Storage
+
+<h1>Lag et nytt event med @Constants.AppName</h1>
+
+<div>
+    <label>Event navn:</label>
+    <br />
+    <input type="text" @bind="eventName" size="100"/>
+</div>
+<!-- Other input fields for date, time, address -->
+<div>
+    <label>Når:</label>
+    <br />
+    <input type="text" @bind="time" size="100" />
+</div>
+<div>
+    <label>Hvor:</label>
+    <br />
+    <input type="text" @bind="place" size="100" />
+</div>
+<br/>
+<button @onclick="GoToNewEvent">Lag event!</button>
+
+@code {
+    string eventName;
+    string time;
+    string place;
+
+    void GoToNewEvent()
+    {
+        // Logic to generate event code and save event details
+        // Redirect to the event page with the generated event code
+
+        string eventCode = GenerateEventCode();
+
+        //TODO: Save event json with this code
+        var newEvent = new EventModel(eventCode, eventName, time, place, new List<DriverModel>());
+        Save(newEvent);
+        // Navigate to event/eventcode
+        Navigation.NavigateTo($"event/{eventCode}");
+    }
+
+    private void Save(EventModel newEvent)
+    {
+        Storage.Set(newEvent.Code, newEvent);
+    }
+
+    private string GenerateEventCode()
+    {
+        return Guid.NewGuid().ToString("N");
+    }
+}
