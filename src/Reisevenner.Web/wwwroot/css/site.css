@@ -94,3 +94,49 @@ a, .btn-link {
 .addpassbtn {
     font-family: Arial;
 }
+
+/* Copy button styles */
+.copy-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 6px;
+    margin-left: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+}
+
+.copy-btn:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
+}
+
+.copy-btn:active {
+    background-color: #e0e0e0;
+    transform: scale(0.95);
+}
+
+.copy-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: #666;
+}
+
+.copy-success {
+    color: #28a745;
+    font-size: 0.9em;
+    margin-left: 8px;
+    font-weight: 500;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-2px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-2px); }
+}

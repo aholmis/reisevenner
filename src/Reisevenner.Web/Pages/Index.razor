@@ -5,16 +5,16 @@
 
 <h1>@Constants.AppName</h1>
 
-<p>Lag en event her for bursdager, idrettsarrangementer og andre turer, sånn at man kan planlegge hvem som reiser sammen.</p>
+<p>Lag et oppdrag her for samkjøring til bursdager, idrettsarrangementer og andre turer, sånn at man kan planlegge hvem som reiser sammen.</p>
 <p>Sammen gjør vi en innsats for miljøet</p>
 
-<button @onclick="CreateNewEvent">Lag en ny event</button>
+<button @onclick="CreateNewEvent">Lag et ny oppdrag</button>
 
 <br />
 <br />
 <input type="text" placeholder="kode" @bind="eventcode" />
 <br />
-<button @onclick="JoinExistingEvent">Åpne en event med kode</button>
+<button @onclick="JoinExistingEvent">Åpne et oppdrag med kode</button>
 
 @code {
     string eventcode;
