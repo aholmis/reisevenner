@@ -1,0 +1,85 @@
+﻿@page "/event/{eventCode}"
+@using Reisevenner.Web.Data
+@inject IEventStorage Storage
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
+
+<h1>@currentEvent.Name</h1>
+
+<p>Del url til deltagerne så de kan bli @Constants.AppName</p>
+<div>
+    <!-- Display event details here -->
+    <p>
+        Kode: @eventCode 
+        <button @onclick="CopyEventCode" class="copy-btn" title="Kopier kode til utklippstavle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+        </button>
+        @if (copySuccess)
+        {
+            <span class="copy-success">✓ Kopiert!</span>
+        }
+    </p>
+    <p>Når:  @currentEvent.When</p>
+    <p>Hvor:  @currentEvent.Where</p>
+</div>
+
+@foreach (var driver in currentEvent.Drivers)
+{
+    <Driver DriverInfo="driver" OnDelete="DeleteDriver" />
+}
+
+<button @onclick="AddDriver">Legg til sjåfør</button>
+
+@code {
+    [Parameter]
+    public string eventCode { get; set; }
+    EventModel currentEvent;
+    bool copySuccess = false;
+
+    protected override void OnParametersSet()
+    {
+        bool exists = Storage.TryGetValue(eventCode, out var storedEvent);
+        if (!exists)
+        {
+            // Redirect to the NotFound page if the event does not exist
+            Navigation.NavigateTo("/notfound", true);
+            return;
+        }
+
+        currentEvent = storedEvent;
+    }
+
+    async Task CopyEventCode()
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", eventCode);
+            copySuccess = true;
+            StateHasChanged();
+            
+            // Hide success message after 2 seconds
+            await Task.Delay(2000);
+            copySuccess = false;
+            StateHasChanged();
+        }
+        catch
+        {
+            // Fallback for browsers that don't support clipboard API
+            await JSRuntime.InvokeVoidAsync("alert", "Kunne ikke kopiere til utklippstavle. Prøv å velge og kopiere koden manuelt.");
+        }
+    }
+
+    void AddDriver()
+    {
+        // Logic to add a new driver
+        currentEvent.Drivers.Add(new DriverModel());
+    }
+
+    void DeleteDriver(DriverModel driver)
+    {
+        // Logic to delete the selected driver
+    }
+}
