@@ -184,6 +184,45 @@ label {
     font-family: Arial;
 }
 
+/* Delete driver button styles */
+.delete-driver-btn {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: 1px solid #dc3545 !important;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-height: 44px;
+    width: auto;
+}
+
+.delete-driver-btn:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+.delete-driver-btn:active {
+    background-color: #bd2130 !important;
+    transform: scale(0.98);
+}
+
+.delete-driver-btn svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+    .delete-driver-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* Copy button styles */
 .copy-btn {
     background: none;

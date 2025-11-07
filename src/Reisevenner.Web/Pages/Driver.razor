@@ -1,25 +1,33 @@
-ï»¿@using Reisevenner.Web.Data
+@using Reisevenner.Web.Data
 
 <div class="driver">
-    <h3>Jeg kjÃ¸rer!</h3>
+    <h3>Jeg kjører!</h3>
     <div class="driver-row">
         <div style="margin-bottom: 15px;">
-            <label for="Name">Navn</label>
-            <input id="Name" @bind="DriverInfo.DriverName" placeholder="Ditt navn"/>
+            <label for="Name-@DriverInfo.Id">Navn</label>
+            <input id="Name-@DriverInfo.Id" @bind="DriverInfo.DriverName" placeholder="Ditt navn"/>
         </div>
         <div style="margin-bottom: 15px;">
-            <label for="Phone">Mobilnr</label>
-            <input id="Phone" @bind="DriverInfo.Phone" placeholder="Telefonnummer"/>
+            <label for="Phone-@DriverInfo.Id">Mobilnr</label>
+            <input id="Phone-@DriverInfo.Id" @bind="DriverInfo.Phone" placeholder="Telefonnummer"/>
+        </div>
+        <div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-end;">
+            <div style="flex-shrink: 0;">
+                <label for="Space-@DriverInfo.Id">Antall plasser</label>
+                <input id="Space-@DriverInfo.Id" @bind="DriverInfo.AvailableSpace" type="number" placeholder="F.eks. 4" style="width: 80px;" />
+            </div>
+            <button class="delete-driver-btn" @onclick="() => OnDelete.InvokeAsync(DriverInfo)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+                Kan ikke kjøre likevel
+            </button>
         </div>
         <div style="margin-bottom: 15px;">
-            <label for="Space">Antall plasser</label>
-            <input id="Space" @bind="DriverInfo.AvailableSpace" type="number" placeholder="F.eks. 4" />
-        </div>
-        <div style="margin-bottom: 15px;">
-            <button @onclick="() => OnDelete.InvokeAsync(DriverInfo)">Kan ikke kjÃ¸re likevel</button>
-        </div>
-        <div style="margin-bottom: 15px;">
-            <button class="addpassbtn" disabled=@(DriverInfo.BilenErStappFull) @onclick="OnAddPassenger">Jeg vil sitte pÃ¥</button>
+            <button class="addpassbtn" disabled=@(DriverInfo.BilenErStappFull) @onclick="OnAddPassenger">Jeg vil sitte på</button>
             <label class="@(DriverInfo.BilenErStappFull ? "buttonDisabledMsg" : "hidden")">Beklager, fullt..</label>
         </div>
     </div>

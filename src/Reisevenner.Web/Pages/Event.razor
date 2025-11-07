@@ -74,12 +74,11 @@
 
     void AddDriver()
     {
-        // Logic to add a new driver
         currentEvent.Drivers.Add(new DriverModel());
     }
 
     void DeleteDriver(DriverModel driver)
     {
-        // Logic to delete the selected driver
+        currentEvent.Drivers.Remove(driver);
     }
 }

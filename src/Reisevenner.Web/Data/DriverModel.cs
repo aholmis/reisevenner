@@ -2,6 +2,7 @@
 
 public record DriverModel
 {
+    public string Id { get; init; } = Guid.NewGuid().ToString();
     public string DriverName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public int AvailableSpace { get; set; } = 1;
@@ -19,6 +20,7 @@ public record DriverModel
 
 public record PassengerModel
 {
+    public string Id { get; init; } = Guid.NewGuid().ToString();
     public string Name { get; set; } = string.Empty;
     public string PhoneOrComment { get; set; } = string.Empty;
 }

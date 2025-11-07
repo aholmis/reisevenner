@@ -1,11 +1,11 @@
 ﻿<div class="passenger-row" style="margin-bottom: 15px;">
     <div style="margin-bottom: 10px;">
-        <label for="passengerName">Navn</label>
-        <input id="passengerName" @bind="PassengerInfo.Name" placeholder="Passasjer navn"/>
+        <label for="passengerName-@PassengerInfo.Id">Navn</label>
+        <input id="passengerName-@PassengerInfo.Id" @bind="PassengerInfo.Name" placeholder="Passasjer navn"/>
     </div>
     <div>
-        <label for="passengerPhone">Telefon eller kommentar</label>
-        <input id="passengerPhone" @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" />
+        <label for="passengerPhone-@PassengerInfo.Id">Telefon eller kommentar</label>
+        <input id="passengerPhone-@PassengerInfo.Id" @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" />
     </div>
 </div>
 
