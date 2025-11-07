@@ -8,12 +8,15 @@
 <p>Lag et oppdrag her for samkjøring til bursdager, idrettsarrangementer og andre turer, sånn at man kan planlegge hvem som reiser sammen.</p>
 <p>Sammen gjør vi en innsats for miljøet</p>
 
-<button @onclick="CreateNewEvent">Lag et ny oppdrag</button>
+<div style="margin-bottom: 20px;">
+    <button @onclick="CreateNewEvent">Lag et ny oppdrag</button>
+</div>
 
-<br />
-<br />
-<input type="text" placeholder="kode" @bind="eventcode" />
-<br />
+<div style="margin-bottom: 20px;">
+    <label for="eventcode">Skriv inn kode for eksisterende oppdrag:</label>
+    <input id="eventcode" type="text" placeholder="kode" @bind="eventcode" />
+</div>
+
 <button @onclick="JoinExistingEvent">Åpne et oppdrag med kode</button>
 
 @code {

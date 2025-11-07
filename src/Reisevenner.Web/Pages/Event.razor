@@ -1,4 +1,4 @@
-ï»¿@page "/event/{eventCode}"
+@page "/event/{eventCode}"
 @using Reisevenner.Web.Data
 @inject IEventStorage Storage
 @inject NavigationManager Navigation
@@ -6,11 +6,11 @@
 
 <h1>@currentEvent.Name</h1>
 
-<p>Del url til deltagerne sÃ¥ de kan bli @Constants.AppName</p>
-<div>
-    <!-- Display event details here -->
+<p>Del url til deltagerne så de kan bli @Constants.AppName</p>
+
+<div style="margin-bottom: 20px;">
     <p>
-        Kode: @eventCode 
+        <strong>Kode:</strong> @eventCode 
         <button @onclick="CopyEventCode" class="copy-btn" title="Kopier kode til utklippstavle">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -19,11 +19,11 @@
         </button>
         @if (copySuccess)
         {
-            <span class="copy-success">âœ“ Kopiert!</span>
+            <span class="copy-success">? Kopiert!</span>
         }
     </p>
-    <p>NÃ¥r:  @currentEvent.When</p>
-    <p>Hvor:  @currentEvent.Where</p>
+    <p><strong>Når:</strong>  @currentEvent.When</p>
+    <p><strong>Hvor:</strong>  @currentEvent.Where</p>
 </div>
 
 @foreach (var driver in currentEvent.Drivers)
@@ -31,7 +31,7 @@
     <Driver DriverInfo="driver" OnDelete="DeleteDriver" />
 }
 
-<button @onclick="AddDriver">Legg til sjÃ¥fÃ¸r</button>
+<button @onclick="AddDriver">Legg til sjåfør</button>
 
 @code {
     [Parameter]
@@ -68,7 +68,7 @@
         catch
         {
             // Fallback for browsers that don't support clipboard API
-            await JSRuntime.InvokeVoidAsync("alert", "Kunne ikke kopiere til utklippstavle. PrÃ¸v Ã¥ velge og kopiere koden manuelt.");
+            await JSRuntime.InvokeVoidAsync("alert", "Kunne ikke kopiere til utklippstavle. Prøv å velge og kopiere koden manuelt.");
         }
     }
 

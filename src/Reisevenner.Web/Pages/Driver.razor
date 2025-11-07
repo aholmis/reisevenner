@@ -3,28 +3,28 @@
 <div class="driver">
     <h3>Jeg kjører!</h3>
     <div class="driver-row">
-        <div>
-            <label for="Name" style="padding-right:330px">Navn</label>
-            <label for="Phone" style="padding-right:300px">Mobilnr</label>
-            <label for="Space">Antall plasser</label>
+        <div style="margin-bottom: 15px;">
+            <label for="Name">Navn</label>
+            <input id="Name" @bind="DriverInfo.DriverName" placeholder="Ditt navn"/>
         </div>
-        <div>
-            <input id="Name" @bind="DriverInfo.DriverName" size="40"/>
-            <input id="Phone" @bind="DriverInfo.Phone" size="40"/>
-            <input id="Space" @bind="DriverInfo.AvailableSpace" size="20" />
+        <div style="margin-bottom: 15px;">
+            <label for="Phone">Mobilnr</label>
+            <input id="Phone" @bind="DriverInfo.Phone" placeholder="Telefonnummer"/>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="Space">Antall plasser</label>
+            <input id="Space" @bind="DriverInfo.AvailableSpace" type="number" placeholder="F.eks. 4" />
+        </div>
+        <div style="margin-bottom: 15px;">
             <button @onclick="() => OnDelete.InvokeAsync(DriverInfo)">Kan ikke kjøre likevel</button>
         </div>
-        <div>
+        <div style="margin-bottom: 15px;">
             <button class="addpassbtn" disabled=@(DriverInfo.BilenErStappFull) @onclick="OnAddPassenger">Jeg vil sitte på</button>
             <label class="@(DriverInfo.BilenErStappFull ? "buttonDisabledMsg" : "hidden")">Beklager, fullt..</label>
-                                                                                 </div>
+        </div>
     </div>
     <div class="passengers @(DriverInfo.BilenErStappFull ? "full" : "")">
-        <div>
-            <label style="padding-right:330px">Navn</label>
-            <label style="padding-right:150px">Mobilnr eller kommentar</label>
-        </div>
-        <!-- Add Passenger component here -->
+        <h4 style="margin-top: 20px; margin-bottom: 10px;">Passasjerer</h4>
         @foreach (var passenger in DriverInfo.Passengers)
         {
             <Passenger PassengerInfo="passenger"/>

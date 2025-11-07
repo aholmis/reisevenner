@@ -7,23 +7,21 @@
 
 <h1>Lag et nytt oppdrag med @Constants.AppName</h1>
 
-<div>
-    <label>Oppdragets navn:</label>
-    <br />
-    <input type="text" @bind="eventName" size="100"/>
+<div style="margin-bottom: 20px;">
+    <label for="eventName">Oppdragets navn:</label>
+    <input id="eventName" type="text" @bind="eventName" placeholder="F.eks. Toms bursdag" />
 </div>
-<!-- Other input fields for date, time, address -->
-<div>
-    <label>Når:</label>
-    <br />
-    <input type="text" @bind="time" size="100" />
+
+<div style="margin-bottom: 20px;">
+    <label for="time">Når:</label>
+    <input id="time" type="text" @bind="time" placeholder="F.eks. Lørdag 15. mars kl 18:00" />
 </div>
-<div>
-    <label>Hvor:</label>
-    <br />
-    <input type="text" @bind="place" size="100" />
+
+<div style="margin-bottom: 20px;">
+    <label for="place">Hvor:</label>
+    <input id="place" type="text" @bind="place" placeholder="F.eks. Oslo sentrum" />
 </div>
-<br/>
+
 <button @onclick="GoToNewEvent">Lag event!</button>
 
 @code {

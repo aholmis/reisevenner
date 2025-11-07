@@ -1,8 +1,12 @@
-﻿
-
-<div class="passenger-row">
-    <input @bind="PassengerInfo.Name" size="40" placeholder="Navn"/>
-    <input @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" size="40" />
+﻿<div class="passenger-row" style="margin-bottom: 15px;">
+    <div style="margin-bottom: 10px;">
+        <label for="passengerName">Navn</label>
+        <input id="passengerName" @bind="PassengerInfo.Name" placeholder="Passasjer navn"/>
+    </div>
+    <div>
+        <label for="passengerPhone">Telefon eller kommentar</label>
+        <input id="passengerPhone" @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" />
+    </div>
 </div>
 
 @code {
