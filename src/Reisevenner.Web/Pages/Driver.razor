@@ -1,4 +1,5 @@
 @using Reisevenner.Web.Data
+@inject IJSRuntime JSRuntime
 
 <div class="driver">
     <h3>Jeg kjører!</h3>
@@ -32,7 +33,7 @@
         </div>
     </div>
     <div class="passengers @(DriverInfo.BilenErStappFull ? "full" : "")">
-        <h4 style="margin-top: 20px; margin-bottom: 10px;">Passasjerer</h4>
+        <h4>Passasjerer</h4>
         @foreach (var passenger in DriverInfo.Passengers)
         {
             <Passenger PassengerInfo="passenger"/>
@@ -46,8 +47,17 @@
     [Parameter]
     public EventCallback<DriverModel> OnDelete { get; set; }
 
-    public void OnAddPassenger()
+    public async Task OnAddPassenger()
     {
-        DriverInfo.Passengers.Add(new());
+        var newPassenger = new PassengerModel();
+        DriverInfo.Passengers.Add(newPassenger);
+        
+        // Wait for the component to re-render
+        StateHasChanged();
+        await Task.Delay(10);
+        
+        // Set focus on the first input of the newly added passenger
+        var inputId = $"passengerName-{newPassenger.Id}";
+        await JSRuntime.InvokeVoidAsync("eval", $"document.getElementById('{inputId}')?.focus()");
     }
 }

@@ -72,9 +72,18 @@
         }
     }
 
-    void AddDriver()
+    async Task AddDriver()
     {
-        currentEvent.Drivers.Add(new DriverModel());
+        var newDriver = new DriverModel();
+        currentEvent.Drivers.Add(newDriver);
+        
+        // Wait for the component to re-render
+        StateHasChanged();
+        await Task.Delay(10);
+        
+        // Set focus on the first input of the newly added driver
+        var inputId = $"Name-{newDriver.Id}";
+        await JSRuntime.InvokeVoidAsync("eval", $"document.getElementById('{inputId}')?.focus()");
     }
 
     void DeleteDriver(DriverModel driver)

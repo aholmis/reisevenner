@@ -23,6 +23,10 @@ h3 {
     font-size: 1.25rem;
 }
 
+h4 {
+    margin-top: 0px;
+}
+
 @media (min-width: 768px) {
     h3 {
         font-size: 1.5rem;
@@ -155,14 +159,14 @@ label {
 }
 
 .passengers {
-    padding-left: 1em;
-    margin: 1em 0;
-    padding-bottom: 1em;
+    padding: 1em;
+    margin: 1em 1em;
+    border-radius: 8px;
 }
 
 @media (max-width: 767px) {
     .passengers {
-        padding-left: 0;
+        padding: 1em 0.5em;
     }
 }
 
