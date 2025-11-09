@@ -2,3 +2,5 @@
 - Use latest syntax
 - Use mobile first UX design
 - You are allowed to run 'dotnet build' at any time
+- use windows line endings
+- 

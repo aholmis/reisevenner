@@ -40,7 +40,7 @@
         <h4>Passasjerer</h4>
         @foreach (var passenger in DriverInfo.Passengers)
         {
-            <Passenger PassengerInfo="passenger"/>
+            <Passenger PassengerInfo="passenger" OnDelete="OnRemovePassenger"/>
         }
     </div>
 </div>
@@ -63,5 +63,17 @@
         // Set focus on the first input of the newly added passenger
         var inputId = $"passengerName-{newPassenger.Id}";
         await JSRuntime.InvokeVoidAsync("eval", $"document.getElementById('{inputId}')?.focus()");
+    }
+
+    public async Task OnRemovePassenger(PassengerModel passenger)
+    {
+        var passengerName = string.IsNullOrWhiteSpace(passenger.Name) ? "denne passasjeren" : passenger.Name;
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Er du sikker på at du vil fjerne {passengerName}?");
+        
+        if (confirmed)
+        {
+            DriverInfo.Passengers.Remove(passenger);
+            StateHasChanged();
+        }
     }
 }

@@ -1,15 +1,28 @@
-﻿<div class="passenger-row" style="margin-bottom: 15px;">
-    <div style="margin-bottom: 10px;">
-        <label for="passengerName-@PassengerInfo.Id">Navn</label>
-        <input id="passengerName-@PassengerInfo.Id" @bind="PassengerInfo.Name" placeholder="Passasjer navn"/>
+<div class="passenger-row" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-end;">
+    <div style="flex: 1;">
+        <div style="margin-bottom: 10px;">
+            <label for="passengerName-@PassengerInfo.Id">Navn</label>
+            <input id="passengerName-@PassengerInfo.Id" @bind="PassengerInfo.Name" placeholder="Passasjer navn"/>
+        </div>
+        <div>
+            <label for="passengerPhone-@PassengerInfo.Id">Telefon eller kommentar</label>
+            <input id="passengerPhone-@PassengerInfo.Id" @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" />
+        </div>
     </div>
-    <div>
-        <label for="passengerPhone-@PassengerInfo.Id">Telefon eller kommentar</label>
-        <input id="passengerPhone-@PassengerInfo.Id" @bind="PassengerInfo.PhoneOrComment" placeholder="Telefon eller kommentar" />
-    </div>
+    <button class="delete-passenger-btn" @onclick="() => OnDelete.InvokeAsync(PassengerInfo)" title="Fjern passasjer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+        </svg>
+    </button>
 </div>
 
 @code {
     [Parameter]
     public Data.PassengerModel PassengerInfo { get; set; }
+
+    [Parameter]
+    public EventCallback<Data.PassengerModel> OnDelete { get; set; }
 }

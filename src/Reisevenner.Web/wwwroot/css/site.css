@@ -56,7 +56,6 @@ button, .btn {
 @media (max-width: 767px) {
     button, .btn {
         width: 100%;
-        margin-bottom: 10px;
     }
 }
 
@@ -171,7 +170,8 @@ label {
 }
 
 .full {
-    background-color: lightsalmon;
+    background-color: #f8d7da;
+    border-color: #dc3545;
 }
 
 .buttonDisabledMsg {
@@ -223,7 +223,8 @@ label {
 @media (max-width: 767px) {
     .delete-driver-btn {
         width: 100%;
-        justify-content: center;
+        flex-shrink: 100; 
+        margin-left: 8px;
     }
 }
 
@@ -237,11 +238,13 @@ label {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 8px;
     transition: all 0.2s ease;
     vertical-align: middle;
     min-height: 44px;
     min-width: 44px;
+    justify-content: center;
 }
 
 @media (max-width: 767px) {
@@ -288,4 +291,56 @@ label {
     20% { opacity: 1; transform: translateY(0); }
     80% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(-2px); }
+}
+/* Delete passenger button styles */
+.delete-passenger-btn {
+    background-color: #dc3545 !important;
+    color: white;
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+    padding: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 8px;
+    transition: all 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
+    flex-shrink: 100;
+    justify-content: center;
+}
+
+.delete-passenger-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.delete-passenger-btn:active {
+    background-color: #bd2130;
+    transform: scale(0.98);
+}
+
+.delete-passenger-btn svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+    .delete-passenger-btn {
+        min-width: 36px;
+        min-height: 36px;
+        padding: 6px;
+        flex-shrink: 100;
+        margin-left: 8px;
+    }
+}
+
+@media (max-width: 767px) {
+    .passenger-row {
+        gap: 8px !important;
+    }
+    .passenger-row > div:first-child {
+        flex: 1 1 auto !important;
+        min-width: 0;
+    }
 }

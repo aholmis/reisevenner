@@ -12,6 +12,7 @@
     <p>
         <strong>Kode:</strong> @eventCode 
         <button @onclick="CopyEventCode" class="copy-btn" title="Kopier kode til utklippstavle">
+            Kopier &nbsp;
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -19,7 +20,7 @@
         </button>
         @if (copySuccess)
         {
-            <span class="copy-success">? Kopiert!</span>
+            <span class="copy-success">Kopiert!</span>
         }
     </p>
     <p><strong>Når:</strong>  @currentEvent.When</p>
