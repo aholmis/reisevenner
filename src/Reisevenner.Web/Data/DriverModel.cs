@@ -6,6 +6,7 @@ public record DriverModel
     public string DriverName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public int AvailableSpace { get; set; } = 1;
+    public string MeetingPlace { get; set; } = string.Empty;
     public List<PassengerModel> Passengers { get; set; } = new();
 
     public bool BilenErStappFull

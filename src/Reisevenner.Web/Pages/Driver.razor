@@ -12,6 +12,10 @@
             <label for="Phone-@DriverInfo.Id">Mobilnr</label>
             <input id="Phone-@DriverInfo.Id" @bind="DriverInfo.Phone" placeholder="Telefonnummer"/>
         </div>
+        <div style="margin-bottom: 15px;">
+            <label for="MeetingPlace-@DriverInfo.Id">Oppmøte (tid og sted)</label>
+            <input id="MeetingPlace-@DriverInfo.Id" @bind="DriverInfo.MeetingPlace" placeholder="F.eks. 12:00 utenfor i veien" />
+        </div>
         <div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: flex-end;">
             <div style="flex-shrink: 0;">
                 <label for="Space-@DriverInfo.Id">Antall plasser</label>
@@ -29,7 +33,7 @@
         </div>
         <div style="margin-bottom: 15px;">
             <button class="addpassbtn" disabled=@(DriverInfo.BilenErStappFull) @onclick="OnAddPassenger">Jeg vil sitte på</button>
-            <label class="@(DriverInfo.BilenErStappFull ? "buttonDisabledMsg" : "hidden")">Beklager, fullt..</label>
+            <p class="@(DriverInfo.BilenErStappFull ? "buttonDisabledMsg" : "hidden")">Beklager, fullt..</p>
         </div>
     </div>
     <div class="passengers @(DriverInfo.BilenErStappFull ? "full" : "")">

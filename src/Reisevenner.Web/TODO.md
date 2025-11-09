@@ -1,7 +1,7 @@
 # TODO
 
 * Decide on deloyment and hosting strategy
-* Add oppmøtested for events
+* Add oppmøtested for drivers
 * Use localization for all user-facing strings
 * Connect event to an email?
 * Consider cookie for "MyEvents"
