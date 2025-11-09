@@ -344,3 +344,10 @@ label {
         min-width: 0;
     }
 }
+
+/* Passenger row layout - keep delete button close to form fields */
+.passenger-row > div:first-child {
+    flex: 0 1 auto;
+    min-width: 300px;
+    max-width: 400px;
+}
