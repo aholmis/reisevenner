@@ -2,29 +2,20 @@
 @using Reisevenner.Web.Data
 @inject NavigationManager Navigation
 
-<div style="text-align: center; padding: 1rem;">
+<div class="notfound-wrapper">
     <h1>🚫 Oppdraget ble ikke funnet</h1>
     <p>Oppdraget du leter etter eksisterer ikke eller er ikke tilgjengelig.</p>
-    
-    <div style="margin: 2rem 0;">
+    <div>
         <p>Dette kan skje hvis:</p>
-        <ul style="display: inline-block; text-align: left; padding-left: 1.5rem;">
+        <ul class="reason-list">
             <li>Oppdrags-koden er feil skrevet</li>
             <li>Oppdraget er slettet</li>
             <li>Linken er utdatert</li>
         </ul>
     </div>
-    
     <div>
-        <button @onclick="GoToHome" class="btn btn-primary">
-            🏠 Gå til forsiden
-        </button>
+        <button @onclick="GoToHome" class="btn btn-primary">🏠 Gå til forsiden</button>
     </div>
 </div>
 
-@code {
-    void GoToHome()
-    {
-        Navigation.NavigateTo("/");
-    }    
-}
+@code { void GoToHome() => Navigation.NavigateTo("/"); }

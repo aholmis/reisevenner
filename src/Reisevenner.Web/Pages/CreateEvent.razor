@@ -7,17 +7,17 @@
 
 <h1>Lag et nytt oppdrag med @Constants.AppName</h1>
 
-<div style="margin-bottom: 20px;">
+<div class="section-block">
     <label for="eventName">Oppdragets navn:</label>
     <input id="eventName" type="text" @bind="eventName" placeholder="F.eks. Toms bursdag" />
 </div>
 
-<div style="margin-bottom: 20px;">
+<div class="section-block">
     <label for="time">Når:</label>
     <input id="time" type="text" @bind="time" placeholder="F.eks. Lørdag 15. mars kl 18:00" />
 </div>
 
-<div style="margin-bottom: 20px;">
+<div class="section-block">
     <label for="place">Hvor:</label>
     <input id="place" type="text" @bind="place" placeholder="F.eks. Oslo sentrum" />
 </div>
@@ -31,25 +31,11 @@
 
     void GoToNewEvent()
     {
-        // Logic to generate event code and save event details
-        // Redirect to the event page with the generated event code
-
         string eventCode = GenerateEventCode();
-
-        //TODO: Save event json with this code
         var newEvent = new EventModel(eventCode, eventName, time, place, new List<DriverModel>());
         Save(newEvent);
-        // Navigate to event/eventcode
         Navigation.NavigateTo($"event/{eventCode}");
     }
-
-    private void Save(EventModel newEvent)
-    {
-        Storage.Set(newEvent.Code, newEvent);
-    }
-
-    private string GenerateEventCode()
-    {
-        return Guid.NewGuid().ToString("N");
-    }
+    private void Save(EventModel newEvent) => Storage.Set(newEvent.Code, newEvent);
+    private string GenerateEventCode() => Guid.NewGuid().ToString("N");
 }

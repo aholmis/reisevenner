@@ -35,3 +35,10 @@
         justify-content: center;
     }
 }
+
+/* Added layout helpers */
+.driver-row { }
+.form-group { margin-bottom:15px; }
+.flex-row-end { display:flex; gap:10px; align-items:flex-end; }
+.space-group { flex-shrink:0; }
+.small-input { width:80px; }
