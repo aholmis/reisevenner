@@ -1,45 +1,50 @@
-﻿@page "/create-event"
-@using Microsoft.Extensions.Caching.Memory
+@page "/create-event"
 @using Reisevenner.Web.Data
 
 @inject NavigationManager Navigation
 @inject IEventStorage Storage
 
-<h1>Lag et nytt oppdrag med @Constants.AppName</h1>
+<div class="create-event-container">
+    <div class="page-header">
+        <h1>Lag et nytt oppdrag</h1>
+        <p class="page-subtitle">Fyll inn detaljer for samkjøringsoppdraget ditt.</p>
+    </div>
 
-<div style="margin-bottom: 20px;">
-    <label for="eventName">Oppdragets navn:</label>
-    <input id="eventName" type="text" @bind="eventName" placeholder="F.eks. Toms bursdag" />
+    <div class="card form-card">
+        <div class="form-group">
+            <label for="eventName">Oppdragets navn</label>
+            <input id="eventName" type="text" @bind="eventName" placeholder="F.eks. Toms bursdag" />
+        </div>
+
+        <div class="form-group">
+            <label for="time">Når</label>
+            <input id="time" type="text" @bind="time" placeholder="F.eks. Lørdag 15. mars kl 18:00" />
+        </div>
+
+        <div class="form-group">
+            <label for="place">Hvor</label>
+            <input id="place" type="text" @bind="place" placeholder="F.eks. Oslo sentrum" />
+        </div>
+
+        <button @onclick="GoToNewEvent">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            Opprett oppdrag
+        </button>
+    </div>
 </div>
-
-<div style="margin-bottom: 20px;">
-    <label for="time">Når:</label>
-    <input id="time" type="text" @bind="time" placeholder="F.eks. Lørdag 15. mars kl 18:00" />
-</div>
-
-<div style="margin-bottom: 20px;">
-    <label for="place">Hvor:</label>
-    <input id="place" type="text" @bind="place" placeholder="F.eks. Oslo sentrum" />
-</div>
-
-<button @onclick="GoToNewEvent">Lag event!</button>
 
 @code {
-    string eventName;
-    string time;
-    string place;
+    string eventName = string.Empty;
+    string time = string.Empty;
+    string place = string.Empty;
 
     void GoToNewEvent()
     {
-        // Logic to generate event code and save event details
-        // Redirect to the event page with the generated event code
-
         string eventCode = GenerateEventCode();
-
-        //TODO: Save event json with this code
         var newEvent = new EventModel(eventCode, eventName, time, place, new List<DriverModel>());
         Save(newEvent);
-        // Navigate to event/eventcode
         Navigation.NavigateTo($"event/{eventCode}");
     }
 

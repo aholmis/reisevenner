@@ -4,35 +4,71 @@
 @inject NavigationManager Navigation
 @inject IJSRuntime JSRuntime
 
-<h1>@currentEvent.Name</h1>
+<div class="event-container">
+    <div class="page-header">
+        <h1>@currentEvent.Name</h1>
+    </div>
 
-<p>Del url til deltagerne s� de kan bli @Constants.AppName</p>
+    <div class="card event-info">
+        <div class="event-meta">
+            <div class="event-meta-item">
+                <span class="event-meta-label">Kode</span>
+                <div class="event-code-row">
+                    <span class="event-code">@eventCode</span>
+                    <button @onclick="CopyEventCode" class="copy-btn" title="Kopier kode til utklippstavle">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Kopier
+                    </button>
+                    @if (copySuccess)
+                    {
+                        <span class="copy-success">✓ Kopiert!</span>
+                    }
+                </div>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(currentEvent.When))
+            {
+                <div class="event-meta-item">
+                    <span class="event-meta-label">Når</span>
+                    <span class="event-meta-value">@currentEvent.When</span>
+                </div>
+            }
+            @if (!string.IsNullOrWhiteSpace(currentEvent.Where))
+            {
+                <div class="event-meta-item">
+                    <span class="event-meta-label">Hvor</span>
+                    <span class="event-meta-value">@currentEvent.Where</span>
+                </div>
+            }
+        </div>
+        <p class="share-hint">💡 Del koden med deltagerne så de kan bli @Constants.AppName!</p>
+    </div>
 
-<div style="margin-bottom: 20px;">
-    <p>
-        <strong>Kode:</strong> @eventCode 
-        <button @onclick="CopyEventCode" class="copy-btn" title="Kopier kode til utklippstavle">
-            Kopier &nbsp;
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-        </button>
-        @if (copySuccess)
+    <div class="drivers-section">
+        <div class="drivers-section-header">
+            <h2>Sjåfører</h2>
+            @if (currentEvent.Drivers.Count > 0)
+            {
+                <span class="driver-count-badge">@currentEvent.Drivers.Count sjåfør@(currentEvent.Drivers.Count == 1 ? "" : "er")</span>
+            }
+        </div>
+
+        @foreach (var driver in currentEvent.Drivers)
         {
-            <span class="copy-success">Kopiert!</span>
+            <Driver DriverInfo="driver" OnDelete="DeleteDriver" />
         }
-    </p>
-    <p><strong>N�r:</strong>  @currentEvent.When</p>
-    <p><strong>Hvor:</strong>  @currentEvent.Where</p>
+
+        <button @onclick="AddDriver">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Legg til sjåfør
+        </button>
+    </div>
 </div>
-
-@foreach (var driver in currentEvent.Drivers)
-{
-    <Driver DriverInfo="driver" OnDelete="DeleteDriver" />
-}
-
-<button @onclick="AddDriver">Legg til sj�f�r</button>
 
 @code {
     [Parameter]
@@ -45,7 +81,6 @@
         bool exists = Storage.TryGetValue(eventCode, out var storedEvent);
         if (!exists)
         {
-            // Redirect to the NotFound page if the event does not exist
             Navigation.NavigateTo("/notfound", true);
             return;
         }
@@ -60,16 +95,14 @@
             await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", eventCode);
             copySuccess = true;
             StateHasChanged();
-            
-            // Hide success message after 2 seconds
+
             await Task.Delay(2000);
             copySuccess = false;
             StateHasChanged();
         }
         catch
         {
-            // Fallback for browsers that don't support clipboard API
-            await JSRuntime.InvokeVoidAsync("alert", "Kunne ikke kopiere til utklippstavle. Pr�v � velge og kopiere koden manuelt.");
+            await JSRuntime.InvokeVoidAsync("alert", "Kunne ikke kopiere til utklippstavle. Prøv å velge og kopiere koden manuelt.");
         }
     }
 
@@ -77,12 +110,10 @@
     {
         var newDriver = new DriverModel();
         currentEvent.Drivers.Add(newDriver);
-        
-        // Wait for the component to re-render
+
         StateHasChanged();
         await Task.Delay(10);
-        
-        // Set focus on the first input of the newly added driver
+
         var inputId = $"Name-{newDriver.Id}";
         await JSRuntime.InvokeVoidAsync("eval", $"document.getElementById('{inputId}')?.focus()");
     }
